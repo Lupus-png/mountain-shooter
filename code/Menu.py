@@ -3,7 +3,7 @@
 import pygame
 from pygame import Surface, Rect
 from pygame.font import Font
-from code.Const import WIN_WIDTH, COLOR_ORANGE
+from code.Const import WIN_WIDTH, COLOR_ORANGE, MENU_OPTION, COLOR_WHITE
 
 class Menu:
     def __init__(self, window):                              # construtor inicia a instancia e 'window'
@@ -15,11 +15,15 @@ class Menu:
         pygame.mixer_music.load('./asset/Menu.mp3')          # carrega o arquivo de musica do menu
         pygame.mixer_music.play(-1)                          # toca a musica, e o '-1' faz a musica repetir ao acabar
 
-        while True:                             # loop infinito
-            self.window.blit(source=self.surf, dest=self.rect)   # na janela faça um desenho (origem = imagem, destino = retangulo)
-            self.menu_text(50, "Mountain", COLOR_ORANGE, ((WIN_WIDTH / 2), 70))  # texto na tela e suas dimenções
-            self.menu_text(50, "Shooter", COLOR_ORANGE, ((WIN_WIDTH / 2), 120))  # texto na tela e suas dimenções
-            pygame.display.flip()                                # atualiza a tela
+        while True:                                                                   # loop infinito
+            self.window.blit(source=self.surf, dest=self.rect)                        # na janela faça um desenho (origem = imagem, destino = retangulo)
+            self.menu_text(50, "Mountain", COLOR_ORANGE, ((WIN_WIDTH / 2), 70))       # texto do titulo na tela e suas dimenções
+            self.menu_text(50, "Shooter", COLOR_ORANGE, ((WIN_WIDTH / 2), 120))
+
+            for i in range(len(MENU_OPTION)):                                         # cada vez que o loop acontecer até o tamanho de MENU_OPTION
+                self.menu_text(20, MENU_OPTION[i], COLOR_WHITE, ((WIN_WIDTH / 2), 200 + 25 * i))  # imprime as opções com 25 de distancia em cada opção
+
+            pygame.display.flip()                                                     # atualiza a tela
 
             for event in pygame.event.get():    # checa os eventos que forem "pegos"
                 if event.type == pygame.QUIT:   # se o tipo do evento for 'sair'
